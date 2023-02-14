@@ -2,13 +2,24 @@ import 'package:estimateapp/Preview.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+
 var items = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-  'Item 5',
+
+  'Chain',
+  'Pustya',
+  'Gopi Tadu',
+  'Ear Rings',
+  'Locket',
 ];
+
+const List<Widget> purity = <Widget>[
+  Text('92'),
+  Text('89'),
+  Text('76'),
+  Text('72'),
+];
+
+
 String dropDownValue = items.first;
 
 class GoldPage extends StatefulWidget {
@@ -26,11 +37,18 @@ class _GoldPageState extends State<GoldPage> {
       stonePrice = 0,
       goldrate = 0,
       temp = 0;
-  String itemName = 'empty';
-  bool light = true;
+
+  String itemName = 'empty',
+         purityInWords = 'empty',
+         kdm = '22kt916',
+         nonKdm = '18kt75';
+  bool _purity = true;
+  final List<bool> _selectedPurity = <bool>[true, false, false, false];
+
 
   @override
   Widget build(BuildContext context) {
+
     var date = DateTime.now();
 
     return Scaffold(
@@ -40,25 +58,26 @@ class _GoldPageState extends State<GoldPage> {
             children: [
               Container(
                 width: double.infinity,
-                height: 70,
+                height: 90,
                 color: Colors.redAccent.shade700,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.only(top: 16),
                 child: const Text(
                   'JAIN JEWELLERS',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
+                      fontSize: 40,
+
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(bottom: 3),
+                      padding: const EdgeInsets.only(bottom: 2),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(width: 1.0),
@@ -66,7 +85,7 @@ class _GoldPageState extends State<GoldPage> {
                       ),
                       child: const Text(
                         "Estimate",
-                        style: TextStyle(fontSize: 32),
+                        style: TextStyle(fontSize: 22),
                       ),
                     ),
                   ],
@@ -74,6 +93,7 @@ class _GoldPageState extends State<GoldPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
+                  top: 10,
                   left: 20,
                   right: 20,
                 ),
@@ -83,13 +103,9 @@ class _GoldPageState extends State<GoldPage> {
                       padding: const EdgeInsets.only(bottom: 25),
                       child: Row(
                         children: [
-                          const Text('Date: ', style: TextStyle(fontSize: 16)),
-                          Text(
-                            DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                            style: const TextStyle(fontSize: 16),
-                          ),
+
                           Padding(
-                            padding: const EdgeInsets.only(left: 45),
+                            padding: const EdgeInsets.only(left: 10),
                             child: Column(
                               children: const [
                                 Text('Rate: ', style: TextStyle(fontSize: 16)),
@@ -120,9 +136,12 @@ class _GoldPageState extends State<GoldPage> {
                               },
                             ),
                           ),
-                          const Text(
-                            ' /10gms',
-                            style: TextStyle(fontSize: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: const Text(
+                              ' /10gms',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
                         ],
                       ),
@@ -130,20 +149,20 @@ class _GoldPageState extends State<GoldPage> {
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 6,
-                        bottom: 6,
+                        bottom: 0,
                       ),
                       child: Row(
                         children: [
                           const Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text('Item name:',
+                            child: Text('Item name:         ',
                                 style: TextStyle(fontSize: 16)),
                           ),
                           Expanded(
                             child: DropdownButton(
                               value: dropDownValue,
                               isExpanded: true,
-                              hint: const Text('Select Item Type'),
+
                               onChanged: (String? value) {
                                 dropDownValue = value!;
                                 itemName = value;
@@ -170,7 +189,7 @@ class _GoldPageState extends State<GoldPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Gross Weight:',
+                              'Gross Weight:    ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
@@ -204,7 +223,7 @@ class _GoldPageState extends State<GoldPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Stone Weight:',
+                              'Stone Weight:    ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
@@ -231,36 +250,7 @@ class _GoldPageState extends State<GoldPage> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 6,
-                        bottom: 6,
-                      ),
-                      child: Row(
-                        children: const [
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Nett Weight:',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Expanded(
-                            child: TextField(
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true),
-                              decoration: InputDecoration(
-                                border: UnderlineInputBorder(),
-                                isDense: true,
-                                hintText: '00.00',
-                                suffixText: 'gms',
-                                contentPadding: EdgeInsets.all(5),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 6,
@@ -271,7 +261,7 @@ class _GoldPageState extends State<GoldPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Value Added:',
+                              'Value Added:     ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
@@ -283,7 +273,7 @@ class _GoldPageState extends State<GoldPage> {
                               decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
                                 isDense: true,
-                                hintText: '00',
+                                hintText: '0',
                                 suffixText: '%',
                                 contentPadding: EdgeInsets.all(5),
                               ),
@@ -305,7 +295,7 @@ class _GoldPageState extends State<GoldPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Stone Price:',
+                              'Stone Price:       ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
@@ -318,7 +308,7 @@ class _GoldPageState extends State<GoldPage> {
                                 border: UnderlineInputBorder(),
                                 isDense: true,
                                 hintText: '00.00',
-                                suffixText: 'Rs',
+                                suffixText: 'rs.',
                                 contentPadding: EdgeInsets.all(5),
                               ),
                               onChanged: (value) {
@@ -329,50 +319,102 @@ class _GoldPageState extends State<GoldPage> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('750 Non KDM'),
-                        Switch(
-                          value: light,
-                          activeColor: Colors.amber,
-                          activeTrackColor: Colors.blue,
-                          onChanged: (bool value) {
-                            setState(() {
-                              light = value;
-                              if (light) {
-                                print(goldrate);
-                                goldrate = (temp * 92) / 100;
-                                print('kdm rate $goldrate');
-                                print('kdm');
-                              } else {
-                                goldrate = (temp * 75) / 100;
-                                print('non kdm rate $goldrate');
-                                print('non kdm');
-                              }
-                            });
-                          },
-                        ),
-                        const Text('916 KDM'),
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Preview(
-                                itemName,
-                                grossWeight,
-                                stoneWeight,
-                                goldrate,
-                                netWeight,
-                                stonePrice,
-                                va),
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 6,
+                        bottom: 6,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Purity:                ',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
-                        );
-                      },
-                      child: const Text('Preview'),
+                          Expanded(
+                            child: ToggleButtons(
+                              onPressed: (int index) {
+                                setState(() {
+                                  // The button that is tapped is set to true, and the others to false.
+                                  for (int i = 0; i < _selectedPurity.length; i++) {
+                                    _selectedPurity[i] = i == index;
+                                    if (index == 0) {
+                                      goldrate = (temp * 92) / 100;
+                                      print('916kdm');
+                                      _purity = true;
+                                    } else if (index == 1){
+                                      goldrate = (temp * 89) / 100;
+                                      print('82');
+                                      _purity = true;
+                                    } else if (index == 2){
+                                      goldrate = (temp * 76) / 100;
+                                      print('82');
+                                      _purity = false;
+                                    } else {
+                                      goldrate = (temp * 72) / 100;
+                                      print('18kt');
+                                      _purity = false;}
+
+                                    if(_purity == true){
+                                      purityInWords = kdm;
+                                    }
+                                    else{purityInWords = nonKdm;}
+
+                                  }
+                                });
+                              },
+
+                              constraints: const BoxConstraints(
+                                minHeight: 40.0,
+                                minWidth: 55.25,
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(8)),
+                              selectedColor: Colors.white,
+                              fillColor: Colors.orange,
+                              isSelected: _selectedPurity,
+                              children: purity,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    SizedBox(
+                      height:50, //height of button
+                      width:350,
+
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green),
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Preview(
+                                  itemName,
+                                  grossWeight,
+                                  stoneWeight,
+                                  goldrate,
+                                  netWeight,
+                                  stonePrice,
+                                  va,
+                                  _selectedPurity,
+
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text('Calculate'),
+                      ),
                     ),
                   ],
                 ),
