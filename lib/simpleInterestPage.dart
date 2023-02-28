@@ -32,7 +32,7 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
   final List<bool> _selectedPurity = <bool>[true, false, false, false];
   DateTime date = DateTime.now();
   TextEditingController dateInput = TextEditingController();
-  bool? release;
+  bool release = false;
 
   @override
   void initState() {
@@ -276,7 +276,7 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                     Row(
                       children: [
                         Switch(
-                            value: release!,
+                            value: release,
                             onChanged: (value) {
                               setState(() {
                                 release = value;
@@ -319,7 +319,9 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                                   interestAmount =
                                       ((pa * rateOfInterest.toInt()) / 100) *
                                           remainingMonths as int;
+                                  print(interestAmount);
                                   totalAmount = (interestAmount + pa) as double;
+                                  print(totalAmount);
                                 });
                               },
                             ),
@@ -374,6 +376,9 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                               onChanged: (value) {
                                 setState(() {
                                   amountPaid = int.parse(value);
+                                  int temp = totalAmount as int;
+                                  totalAmount = (temp - amountPaid) as double;
+                                  print(totalAmount);
                                 });
                               },
                             ),
@@ -395,7 +400,7 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
-                          if (release!) Text('Total Amount $totalAmount'),
+                          if (release) Text('Total Amount $totalAmount'),
                         ],
                       ),
                     ),
