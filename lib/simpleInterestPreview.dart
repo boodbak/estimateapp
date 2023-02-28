@@ -11,7 +11,7 @@ double gst = 0;
 double tax = 3;
 
 
-class Preview extends StatefulWidget {
+class SimpleInterestPreview extends StatefulWidget {
   final String itemName;
   final double grossWeight;
   final double stoneWeight;
@@ -22,15 +22,15 @@ class Preview extends StatefulWidget {
   final String purityInWords;
 
 
-  const Preview(this.itemName, this.grossWeight, this.stoneWeight,
+  const SimpleInterestPreview(this.itemName, this.grossWeight, this.stoneWeight,
       this.goldRate,this.nettWeight, this.stonePrice, this.va,this.purityInWords,
       {super.key});
 
   @override
-  State<Preview> createState() => _PreviewState();
+  State<SimpleInterestPreview> createState() => _SimpleInterestPreviewState();
 }
 
-class _PreviewState extends State<Preview> {
+class _SimpleInterestPreviewState extends State<SimpleInterestPreview> {
   @override
   Widget build(BuildContext context) {
 
@@ -62,7 +62,7 @@ class _PreviewState extends State<Preview> {
               pw.Center(
                 child: pw.Text(
                   title,
-                  style: pw.TextStyle(fontSize: 20, color: PdfColors.red, fontWeight: pw.FontWeight.bold),
+                  style: pw.TextStyle(fontSize: 20, color: PdfColors.blue, fontWeight: pw.FontWeight.bold),
                 ),
               ),
               pw.SizedBox(height: 20),
@@ -78,8 +78,8 @@ class _PreviewState extends State<Preview> {
               pw.Row(
                   children:[
                     pw.SizedBox(width: 35),
-                    pw.Text('Gold rate:'),
-                pw.SizedBox(width: 56),
+                    pw.Text('SimpleInterest rate:'),
+                pw.SizedBox(width: 52),
                 pw.Text('${widget.goldRate.toString()}'),] ),
 
               pw.SizedBox(height: 10),
@@ -169,7 +169,7 @@ class _PreviewState extends State<Preview> {
                     pw.Text('Rs. ${totalAmount.toString()}'),
                   ] ),
 
-              pw.SizedBox(height: 80),
+
 
             ],
           );

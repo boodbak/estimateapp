@@ -1,15 +1,42 @@
-import 'package:estimateapp/Preview.dart';
+import 'package:estimateapp/silverpreview.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+
 var items = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-  'Item 5',
+  'Payal',
+  'Mettal',
+  'Rings',
+  'Plate',
+  'Deepam',
+  'Murti',
+  'Kada',
+  'Flowers',
+  'Keychains',
+  'Molatadu',
+
 ];
-String dropDownValue = items.first;
+
+
+String
+        seventy = '70',
+        eighty = '80',
+        eightyfive = '85',
+        ninetytwo = '92.5',
+        pure = '99.9';
+
+
+
+const List<Widget> purity = <Widget>[
+  Text('70'),
+  Text('80'),
+  Text('85'),
+  Text('92.5'),
+  Text('99.9'),
+];
+
+
+String itemName = items.first;
 
 class SilverPage extends StatefulWidget {
   const SilverPage({super.key});
@@ -19,19 +46,22 @@ class SilverPage extends StatefulWidget {
 }
 
 class _SilverPageState extends State<SilverPage> {
-  double stoneWeight = 0,
-      grossWeight = 0,
-      netWeight = 0,
-      va = 0,
+  double
+      weight = 0,
+      mc = 0,
       stonePrice = 0,
-      silverRate = 0,
+      rate = 0,
       temp = 0;
-  String itemName = 'empty';
-  bool light = true;
+
+
+
+  String purityInWords = seventy;
+  final List<bool> _selectedPurity = <bool>[true, false, false, false, false];
+
 
   @override
   Widget build(BuildContext context) {
-    var date = DateTime.now();
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -40,25 +70,26 @@ class _SilverPageState extends State<SilverPage> {
             children: [
               Container(
                 width: double.infinity,
-                height: 70,
-                color: Colors.redAccent.shade700,
+                height: 90,
+                color: Colors.blue,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.only(top: 16),
                 child: const Text(
                   'JAIN JEWELLERS',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
+                      fontSize: 25,
+
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(bottom: 3),
+                      padding: const EdgeInsets.only(bottom: 2),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(width: 1.0),
@@ -66,7 +97,7 @@ class _SilverPageState extends State<SilverPage> {
                       ),
                       child: const Text(
                         "Estimate",
-                        style: TextStyle(fontSize: 32),
+                        style: TextStyle(fontSize: 22),
                       ),
                     ),
                   ],
@@ -74,6 +105,7 @@ class _SilverPageState extends State<SilverPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
+                  top: 10,
                   left: 20,
                   right: 20,
                 ),
@@ -83,18 +115,14 @@ class _SilverPageState extends State<SilverPage> {
                       padding: const EdgeInsets.only(bottom: 25),
                       child: Row(
                         children: [
-                          const Text('Date: ', style: TextStyle(fontSize: 16)),
-                          Text(
-                            DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                            style: const TextStyle(fontSize: 16),
-                          ),
+
                           Padding(
-                            padding: const EdgeInsets.only(left: 45),
+                            padding: const EdgeInsets.only(left: 10),
                             child: Column(
                               children: const [
                                 Text('Rate: ', style: TextStyle(fontSize: 16)),
                                 Text(
-                                  '  24kt ',
+                                  '  999 ',
                                   style: TextStyle(
                                     fontSize: 12,
                                   ),
@@ -104,9 +132,11 @@ class _SilverPageState extends State<SilverPage> {
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
+                              const TextInputType.numberWithOptions(
+                                  decimal: true),
                               decoration: InputDecoration(
                                 isDense: true, // Added this
                                 contentPadding: const EdgeInsets.all(9),
@@ -114,15 +144,18 @@ class _SilverPageState extends State<SilverPage> {
                                     borderRadius: BorderRadius.circular(10)),
                               ),
                               onChanged: (value) {
-                                silverRate = double.parse(value);
-                                temp = silverRate;
-                                silverRate = (temp * 92) / 100;
+                                if (value.length < 3){rate = double.parse(value + '0');}
+                                  else{rate = double.parse(value);
+                                     }
                               },
                             ),
                           ),
-                          const Text(
-                            ' /10gms',
-                            style: TextStyle(fontSize: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: const Text(
+                              ' /10gms',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
                         ],
                       ),
@@ -130,22 +163,23 @@ class _SilverPageState extends State<SilverPage> {
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 6,
-                        bottom: 6,
+                        bottom: 0,
                       ),
                       child: Row(
                         children: [
                           const Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text('Item name:',
+                            child: Text('Item name:     ',
                                 style: TextStyle(fontSize: 16)),
                           ),
                           Expanded(
                             child: DropdownButton(
-                              value: dropDownValue,
-                              isExpanded: true,
-                              hint: const Text('Select Item Type'),
+
+                              value: itemName
+                              ,                              isExpanded: true,
+
                               onChanged: (String? value) {
-                                dropDownValue = value!;
+                                itemName = value!; //now check
                                 itemName = value;
                                 setState(() {});
                               },
@@ -170,97 +204,33 @@ class _SilverPageState extends State<SilverPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Gross Weight:',
+                              'Weight:            ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
-                              decoration: const InputDecoration(
-                                border: UnderlineInputBorder(),
-                                isDense: true,
-                                hintText: '00.00',
-                                suffixText: 'gms',
-                                contentPadding: EdgeInsets.all(5),
-                              ),
-                              onChanged: (value) {
-                                grossWeight = double.parse(value);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 6,
-                        bottom: 6,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Stone Weight:',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Expanded(
-                            child: TextField(
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
-                              decoration: const InputDecoration(
-                                border: UnderlineInputBorder(),
-                                isDense: true,
-                                hintText: '00.00',
-                                suffixText: 'gms',
-                                contentPadding: EdgeInsets.all(5),
-                              ),
-                              onChanged: (value) {
-                                stoneWeight = double.parse(value);
-                                setState(() {
-                                  netWeight = grossWeight - stoneWeight;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 6,
-                        bottom: 6,
-                      ),
-                      child: Row(
-                        children: const [
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Nett Weight:',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Expanded(
-                            child: TextField(
-                              keyboardType: TextInputType.numberWithOptions(
+                              const TextInputType.numberWithOptions(
                                   decimal: true),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
                                 isDense: true,
                                 hintText: '00.00',
                                 suffixText: 'gms',
                                 contentPadding: EdgeInsets.all(5),
                               ),
+                              onChanged: (value) {
+                                weight = double.parse(value);
+                              },
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 6,
@@ -271,24 +241,27 @@ class _SilverPageState extends State<SilverPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Value Added:',
+                              'MC:                  ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
+                              const TextInputType.numberWithOptions(
+                                  decimal: true),
                               decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
                                 isDense: true,
-                                hintText: '00',
-                                suffixText: '%',
+                                hintText: '0',
+                                prefixText: 'Rs.',
+                                suffixText: '/gm',
                                 contentPadding: EdgeInsets.all(5),
                               ),
                               onChanged: ((value) {
-                                va = double.parse(value);
+                                mc = double.parse(value);
                               }),
                             ),
                           ),
@@ -305,20 +278,22 @@ class _SilverPageState extends State<SilverPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Stone Price:',
+                              'Stone Price:   ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
+                              const TextInputType.numberWithOptions(
+                                  decimal: true),
                               decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
                                 isDense: true,
                                 hintText: '00.00',
-                                suffixText: 'Rs',
+                                prefixText: 'Rs.',
                                 contentPadding: EdgeInsets.all(5),
                               ),
                               onChanged: (value) {
@@ -329,50 +304,97 @@ class _SilverPageState extends State<SilverPage> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('750 Non KDM'),
-                        Switch(
-                          value: light,
-                          activeColor: Colors.amber,
-                          activeTrackColor: Colors.blue,
-                          onChanged: (bool value) {
-                            setState(() {
-                              light = value;
-                              if (light) {
-                                print(silverRate);
-                                silverRate = (temp * 92) / 100;
-                                print('kdm rate $silverRate');
-                                print('kdm');
-                              } else {
-                                silverRate = (temp * 75) / 100;
-                                print('non kdm rate $silverRate');
-                                print('non kdm');
-                              }
-                            });
-                          },
-                        ),
-                        const Text('916 KDM'),
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Preview(
-                                itemName,
-                                grossWeight,
-                                stoneWeight,
-                                silverRate,
-                                netWeight,
-                                stonePrice,
-                                va),
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 6,
+                        bottom: 6,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Purity:   ',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
-                        );
-                      },
-                      child: const Text('Preview'),
+                          Expanded(
+                            child: ToggleButtons(
+                              onPressed: (int index) async {
+                                setState(() {
+                                  // The button that is tapped is set to true, and the others to false.
+                                  for (int i = 0; i < _selectedPurity.length; i++) {
+                                    _selectedPurity[i] = i == index;
+                                    if (index == 0) {
+                                      purityInWords = seventy;
+                                    } else if (index == 1){
+                                      purityInWords = eighty;
+                                    } else if (index == 2){
+                                      purityInWords = eightyfive;
+                                    }
+                                    else if (index == 3){
+                                      purityInWords = ninetytwo;
+                                    }
+                                    else {
+                                      purityInWords = pure;
+                                    }
+                                  }
+
+                                });
+
+                              },
+
+                              constraints: const BoxConstraints(
+                                minHeight: 40.0,
+                                minWidth: 50,
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(8)),
+                              selectedColor: Colors.white,
+                              fillColor: Colors.blue,
+                              isSelected: _selectedPurity,
+                              children: purity,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+
+                    SizedBox(
+                      height: 25,
+                    ),
+
+                    SizedBox(
+                      height:50, //height of button
+                      width:350,
+
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green),
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SilverPreview(
+                                itemName,
+                                weight,
+                                rate,
+                                stonePrice,
+                                mc,
+                                purityInWords,
+
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text('Calculate'),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),

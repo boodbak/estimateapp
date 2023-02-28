@@ -4,44 +4,40 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-double wastage = 0;
+double mcCharges = 0;
 double finalPrice = 0;
 double totalAmount = 0;
 double gst = 0;
 double tax = 3;
 
 
-class Preview extends StatefulWidget {
+class SilverPreview extends StatefulWidget {
   final String itemName;
-  final double grossWeight;
-  final double stoneWeight;
-  final double goldRate;
-  final double nettWeight;
+  final double weight;
+  final double rate;
   final double stonePrice;
-  final double va;
+  final double mc;
   final String purityInWords;
 
 
-  const Preview(this.itemName, this.grossWeight, this.stoneWeight,
-      this.goldRate,this.nettWeight, this.stonePrice, this.va,this.purityInWords,
+  const SilverPreview(this.itemName, this.weight,
+      this.rate, this.stonePrice, this.mc,this.purityInWords,
       {super.key});
 
   @override
-  State<Preview> createState() => _PreviewState();
+  State<SilverPreview> createState() => _SilverPreviewState();
 }
 
-class _PreviewState extends State<Preview> {
+class _SilverPreviewState extends State<SilverPreview> {
   @override
   Widget build(BuildContext context) {
 
     var date = DateTime.now();
 
-    double wastage = (widget.nettWeight  * (widget.va / 100));
+    double mcCharges = (widget.weight  * widget.mc);
 
 
-    double price = widget.goldRate * widget.nettWeight +
-        (((widget.goldRate * widget.nettWeight) * widget.va) / 100) +
-        widget.stonePrice;
+    double price = (widget.rate/10 * widget.weight) + mcCharges +widget.stonePrice;
     finalPrice = price.roundToDouble();
 
     double gst = (finalPrice * tax / 100).roundToDouble();
@@ -62,7 +58,7 @@ class _PreviewState extends State<Preview> {
               pw.Center(
                 child: pw.Text(
                   title,
-                  style: pw.TextStyle(fontSize: 20, color: PdfColors.red, fontWeight: pw.FontWeight.bold),
+                  style: pw.TextStyle(fontSize: 20, color: PdfColors.blue, fontWeight: pw.FontWeight.bold),
                 ),
               ),
               pw.SizedBox(height: 20),
@@ -78,9 +74,9 @@ class _PreviewState extends State<Preview> {
               pw.Row(
                   children:[
                     pw.SizedBox(width: 35),
-                    pw.Text('Gold rate:'),
-                pw.SizedBox(width: 56),
-                pw.Text('${widget.goldRate.toString()}'),] ),
+                    pw.Text('Silver rate:'),
+                pw.SizedBox(width: 52),
+                pw.Text('${widget.rate.toString()}'),] ),
 
               pw.SizedBox(height: 10),
 
@@ -103,33 +99,17 @@ class _PreviewState extends State<Preview> {
               pw.Row(
                   children:[
                     pw.SizedBox(width: 35),
-                    pw.Text('Gross weight:'),
-                    pw.SizedBox(width: 34),
-                    pw.Text('${widget.grossWeight.toStringAsFixed(3)} gms'),
+                    pw.Text('Weight:'),
+                    pw.SizedBox(width: 67),
+                    pw.Text('${widget.weight.toStringAsFixed(3)} gms'),
                   ] ),
 
               pw.Row(
                   children:[
                     pw.SizedBox(width: 35),
-                    pw.Text('Stone weight:'),
-                    pw.SizedBox(width: 34.5),
-                    pw.Text('${widget.stoneWeight.toStringAsFixed(3)} gms'),
-                  ] ),
-
-              pw.Row(
-                  children:[
-                    pw.SizedBox(width: 35),
-                    pw.Text('Net weight:'),
-                    pw.SizedBox(width: 47),
-                    pw.Text('${widget.nettWeight.toStringAsFixed(3)} gms'),
-                  ] ),
-
-              pw.Row(
-                  children:[
-                    pw.SizedBox(width: 35),
-                    pw.Text('Value add:'),
-                    pw.SizedBox(width: 50),
-                    pw.Text('${wastage.toStringAsFixed(3)} gms'),
+                    pw.Text('MC:'),
+                    pw.SizedBox(width: 85),
+                    pw.Text('Rs. ${mcCharges.toStringAsFixed(1)}'),
                   ] ),
 
               pw.Row(
@@ -169,8 +149,7 @@ class _PreviewState extends State<Preview> {
                     pw.Text('Rs. ${totalAmount.toString()}'),
                   ] ),
 
-              pw.SizedBox(height: 80),
-
+              pw.SizedBox(height: 80,),
             ],
           );
         },

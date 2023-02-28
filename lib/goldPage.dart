@@ -4,13 +4,25 @@ import 'package:intl/intl.dart';
 
 
 var items = [
-
   'Chain',
   'Pustya',
   'Gopi Tadu',
   'Ear Rings',
   'Locket',
+  'Mangalsutra chains',
+  'Gundlu',
+  'Necklace',
+  'Finger Rings'
+  'Balirings',
+   'Matil',
+  'Bangles', 'Kadas',
+  'Bracelets',
+  'Vadiyanam',
 ];
+
+
+String kdm = '22kt916',
+    nonKdm = '18kt75';
 
 const List<Widget> purity = <Widget>[
   Text('92'),
@@ -20,7 +32,7 @@ const List<Widget> purity = <Widget>[
 ];
 
 
-String dropDownValue = items.first;
+String itemName = items.first;
 
 class GoldPage extends StatefulWidget {
   const GoldPage({super.key});
@@ -32,16 +44,15 @@ class GoldPage extends StatefulWidget {
 class _GoldPageState extends State<GoldPage> {
   double stoneWeight = 0,
       grossWeight = 0,
-      netWeight = 0,
+      nettWeight = 0,
       va = 0,
       stonePrice = 0,
       goldrate = 0,
       temp = 0;
+      
 
-  String itemName = 'empty',
-         purityInWords = 'empty',
-         kdm = '22kt916',
-         nonKdm = '18kt75';
+
+  String purityInWords = kdm;
   bool _purity = true;
   final List<bool> _selectedPurity = <bool>[true, false, false, false];
 
@@ -59,14 +70,14 @@ class _GoldPageState extends State<GoldPage> {
               Container(
                 width: double.infinity,
                 height: 90,
-                color: Colors.redAccent.shade700,
+                color: Colors.amber,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(top: 16),
                 child: const Text(
                   'JAIN JEWELLERS',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 40,
+                      fontSize: 25,
 
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.bold),
@@ -120,6 +131,8 @@ class _GoldPageState extends State<GoldPage> {
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       decimal: true),
@@ -130,9 +143,12 @@ class _GoldPageState extends State<GoldPage> {
                                     borderRadius: BorderRadius.circular(10)),
                               ),
                               onChanged: (value) {
-                                goldrate = double.parse(value);
-                                temp = goldrate;
+
+                                if (value.length < 5){goldrate = double.parse(value + '0');}
+                                else{goldrate = double.parse(value);
+                                } temp = goldrate;
                                 goldrate = (temp * 92) / 100;
+
                               },
                             ),
                           ),
@@ -160,11 +176,12 @@ class _GoldPageState extends State<GoldPage> {
                           ),
                           Expanded(
                             child: DropdownButton(
-                              value: dropDownValue,
-                              isExpanded: true,
+
+                              value: itemName
+,                              isExpanded: true,
 
                               onChanged: (String? value) {
-                                dropDownValue = value!;
+                                itemName = value!; //now check
                                 itemName = value;
                                 setState(() {});
                               },
@@ -195,6 +212,8 @@ class _GoldPageState extends State<GoldPage> {
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       decimal: true),
@@ -229,6 +248,8 @@ class _GoldPageState extends State<GoldPage> {
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       decimal: true),
@@ -241,9 +262,6 @@ class _GoldPageState extends State<GoldPage> {
                               ),
                               onChanged: (value) {
                                 stoneWeight = double.parse(value);
-                                setState(() {
-                                  netWeight = grossWeight - stoneWeight;
-                                });
                               },
                             ),
                           ),
@@ -267,6 +285,8 @@ class _GoldPageState extends State<GoldPage> {
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       decimal: true),
@@ -301,6 +321,8 @@ class _GoldPageState extends State<GoldPage> {
                           ),
                           Expanded(
                             child: TextField(
+
+                              textInputAction: TextInputAction.next,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       decimal: true),
@@ -331,50 +353,58 @@ class _GoldPageState extends State<GoldPage> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Purity:                ',
+                              'Purity:   ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           Expanded(
                             child: ToggleButtons(
-                              onPressed: (int index) {
+                              onPressed: (int index) async {
                                 setState(() {
                                   // The button that is tapped is set to true, and the others to false.
                                   for (int i = 0; i < _selectedPurity.length; i++) {
                                     _selectedPurity[i] = i == index;
                                     if (index == 0) {
-                                      goldrate = (temp * 92) / 100;
-                                      print('916kdm');
+                                      goldrate = (temp * 92/10) / 100;
+                                      purityInWords = kdm;
+
                                       _purity = true;
                                     } else if (index == 1){
-                                      goldrate = (temp * 89) / 100;
-                                      print('82');
+                                      goldrate = (temp * 89/10) / 100;
+                                      purityInWords = kdm;
+
+
                                       _purity = true;
                                     } else if (index == 2){
-                                      goldrate = (temp * 76) / 100;
-                                      print('82');
+                                      goldrate = (temp * 76/10) / 100;
+
                                       _purity = false;
+                                      purityInWords = nonKdm;
+
                                     } else {
-                                      goldrate = (temp * 72) / 100;
+                                      goldrate = (temp * 72/10) / 100;
                                       print('18kt');
-                                      _purity = false;}
-
-                                    if(_purity == true){
-                                      purityInWords = kdm;
-                                    }
-                                    else{purityInWords = nonKdm;}
-
+                                      _purity = false;
+                                      purityInWords = nonKdm;
+                                      }
                                   }
+
+                                    // if(_purity == true){
+                                    //   purityInWords = kdm;
+                                    // }
+                                    // else{purityInWords = nonKdm;}
+
                                 });
+
                               },
 
                               constraints: const BoxConstraints(
                                 minHeight: 40.0,
-                                minWidth: 55.25,
+                                minWidth: 64,
                               ),
                               borderRadius: const BorderRadius.all(Radius.circular(8)),
                               selectedColor: Colors.white,
-                              fillColor: Colors.orange,
+                              fillColor: Colors.amber,
                               isSelected: _selectedPurity,
                               children: purity,
                             ),
@@ -385,7 +415,7 @@ class _GoldPageState extends State<GoldPage> {
 
 
                     SizedBox(
-                      height: 10,
+                      height: 25,
                     ),
 
                     SizedBox(
@@ -396,6 +426,9 @@ class _GoldPageState extends State<GoldPage> {
                         style: ElevatedButton.styleFrom(
                           primary: Colors.green),
                         onPressed: () async {
+                          setState(() {
+                            nettWeight = grossWeight - stoneWeight;
+                          });
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -404,10 +437,10 @@ class _GoldPageState extends State<GoldPage> {
                                   grossWeight,
                                   stoneWeight,
                                   goldrate,
-                                  netWeight,
+                                  nettWeight,
                                   stonePrice,
                                   va,
-                                  _selectedPurity,
+                                  purityInWords,
 
                               ),
                             ),
@@ -415,6 +448,10 @@ class _GoldPageState extends State<GoldPage> {
                         },
                         child: const Text('Calculate'),
                       ),
+                    ),
+
+                    SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),
