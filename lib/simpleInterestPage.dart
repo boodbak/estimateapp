@@ -119,7 +119,7 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                                     children: [
                                       Text('Bill Date:',
                                           style: TextStyle(fontSize: 16)),
-                                      IconButton(
+                                      ElevatedButton(
                                         onPressed: () async {
                                           DateTime? pickedDate =
                                               await showDatePicker(
@@ -152,11 +152,9 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                                             });
                                           } else {}
                                         },
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: 20,
+                                        child: const Text('edit'),
                                         ),
-                                      ),
+
                                     ],
                                   ),
                                   Text('${dateInput.text}',
@@ -378,7 +376,6 @@ class _SimpleInterestPageState extends State<SimpleInterestPage> {
                                   amountPaid = int.parse(value);
                                   int temp = totalAmount as int;
                                   totalAmount = (temp - amountPaid) as double;
-                                  print(totalAmount);
                                 });
                               },
                             ),
